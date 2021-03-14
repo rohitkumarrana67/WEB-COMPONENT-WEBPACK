@@ -12,5 +12,4 @@ class Queston extends HTMLElement{
   }
 }
 
-
-export default customElements.define('question-el', Queston);
+customElements.define('question-el', Queston);
