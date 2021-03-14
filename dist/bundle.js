@@ -1,0 +1,1 @@
+(()=>{class e extends HTMLElement{connectedCallback(){this.setHTMLContent()}setHTMLContent(){this.innerHTML="\n<h1>Hi hai ye</h1>\n"}}customElements.define("question-el",e)})();
