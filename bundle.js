@@ -1,5 +1,5 @@
 const template = `
-<h1>Hi hai ye</h1>
+<h1>Here, you create</h1>
 `
 class Queston extends HTMLElement{
 
