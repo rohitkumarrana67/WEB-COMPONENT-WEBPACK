@@ -1,7 +1,11 @@
 class SurveyPreview extends HTMLElement{
+
   connectedCallback(){
-    this.innerHTML = '<div class="bg-light px-5 py-3"> I will show you the preview<div>'
+    this.innerHTML = `
+      <div class="align-items-center bg-light d-flex h-100 justify-content-center"> I will show you the preview<div>
+    `
   }
+
 }
 
 customElements.define('survey-preview', SurveyPreview);
