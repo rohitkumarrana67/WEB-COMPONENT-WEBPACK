@@ -23,7 +23,7 @@ class SurveySidemenu extends HTMLElement{
           console.log("checking")
            $(e.currentTarget).append('<question-selection>')
         })
-      }
+      })
     }
 }
 
