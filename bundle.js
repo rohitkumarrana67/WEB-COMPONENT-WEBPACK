@@ -12,8 +12,4 @@ class Queston extends HTMLElement{
   }
 }
 
-Survey.prototype.getName2 = function() {
-  console.log("method chal gya");
-}
-
 customElements.define('question-el', Queston);

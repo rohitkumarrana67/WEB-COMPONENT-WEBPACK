@@ -18,10 +18,12 @@ class SurveySidemenu extends HTMLElement{
       this.innerHTML= this.template
     }
     connectedCallback(){
-      $(this).on('click', '#question-1', function(e){
-        console.log("checking")
-         $(e.currentTarget).append('<question-selection>')
-      })
+      $.getScript('https://rohitkumarrana67.github.io/WEB-COMPONENT-WEBPACK/question_selection.js', ()=>{
+        $(this).on('click', '#question-1', function(e){
+          console.log("checking")
+           $(e.currentTarget).append('<question-selection>')
+        })
+      }
     }
 }
 
