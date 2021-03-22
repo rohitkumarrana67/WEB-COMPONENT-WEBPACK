@@ -1,9 +1,9 @@
 class questionSelection extends HTMLElement{
 
   QUESTION_TYPE = {
-    'mcq':        {url: 'http://localhost:4001/questions/mcq_question.js', tag: '<question-mcq />', tag_name: 'question-mcq'},
-    'true-false': {url: 'http://localhost:4001/questions/true_false_question.js', tag: '<question-tf />', tag_name: 'question-tf'},
-    'rating':     {url: 'http://localhost:4001/questions/rating_question.js', tag: '<question-rate />', tag_name: 'question-rate'}
+    'mcq'   : {url: 'http://localhost:4001/questions/mcq_question.js', tag: '<question-mcq />', tag_name: 'question-mcq'},
+    'tf'    : {url: 'http://localhost:4001/questions/tf_question.js', tag: '<question-tf />', tag_name: 'question-tf'},
+    'rating': {url: 'http://localhost:4001/questions/rating_question.js', tag: '<question-rate />', tag_name: 'question-rate'}
   }
 
   constructor(){
