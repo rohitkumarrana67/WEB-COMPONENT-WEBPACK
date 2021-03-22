@@ -2,10 +2,11 @@ class SurveyTopNav extends HTMLElement{
   
   constructor(){
     super();
-    this.text = this.getAttribute('text') || 'New TopNav';
+    this.text = this.getAttribute('text') || 'New Survey';
   }
 
   render() {
+    $(this).addClass('d-flex align-items-center')
     this.innerHTML = `
     <div class="px-5 py-3">${this.text}</div>
     <input class="input-group-text mx-5 my-3 d-none" type="text" value="${this.text}" placeholder="Survey Name">
