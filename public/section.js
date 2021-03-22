@@ -29,7 +29,7 @@ class SurveySection extends HTMLElement {
   }
 
   checkIfLast(){
-    if($('#question-container').children().length < 1){
+    if($('#question-container').children().length-1 < 1){
       $(this).addClass('align-items-center justify-content-center').find('#add-question-btn').show()
       $(this).find('#add-question-small').parent().addClass('d-none')
     }
