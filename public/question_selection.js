@@ -8,38 +8,37 @@ class questionSelection extends HTMLElement{
 
   constructor(){
     super()
-    this.template = `
-    <div class="modal fade" id="exampleModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-4 my-1"><button class="btn btn-outline-primary w-100" type="mcq">MCQ</button></div>
-              <div class="col-md-4 my-1"><button class="btn btn-outline-warning w-100" type="tf">True/False</button></div>
-              <div class="col-md-4 my-1"><button class="btn btn-outline-danger w-100" type="rating">Rating</button></div>
-              <div class="col-md-4 my-1"><button class="btn btn-outline-primary w-100" type="mcq">MCQ</button></div>
-              <div class="col-md-4 my-1"><button class="btn btn-outline-warning w-100" type="tf">True/False</button></div>
-              <div class="col-md-4 my-1"><button class="btn btn-outline-danger w-100" type="rating">Rating</button></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    `
+    this.template;
   }
+
   connectedCallback(){
-    this.innerHTML = this.template
-    $(this).find('.modal').modal('show')
-    $(this).on('click', '.close', (e)=>{
-      e.preventDefault()
-      e.stopPropagation()
-      $(this).remove()
-   })
-   $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
+    if(!this.template){
+      $.ajax({
+        url: "http://localhost:4002/survey/question_selection",
+        method: 'GET',
+        wait: true,
+        success: (response) => {
+          this.template = response
+          this.innerHTML = this.template;
+          $(this).find('.modal').modal('show')
+          $(this).on('click', '.close', (e)=>{
+            e.preventDefault()
+            e.stopPropagation()
+            $(this).remove()
+          })
+          $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
+        }
+      })
+    } else {
+      this.innerHTML = this.template;
+      $(this).find('.modal').modal('show')
+      $(this).on('click', '.close', (e)=>{
+        e.preventDefault()
+        e.stopPropagation()
+        $(this).remove()
+      })
+      $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
+    }
   }
 
   _renderQuestion(type){

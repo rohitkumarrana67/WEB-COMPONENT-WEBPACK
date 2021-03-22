@@ -3,35 +3,29 @@ class TFQuestion extends HTMLElement {
   constructor(){
     super();
     this.JSON = this.JSON = {question: '', options: []}
-    this.template = `
-      <div class="card m-4">
-        <div class="card-header d-flex align-items-center">
-          <input class="form-control" type="text" placeholder="Question here...">
-          <i class="fa fa-trash ms-3 text-danger delete"></i>
-        </div>
-        <div class="card-body">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <input type="text" placeholder="Option 1 here..." value="True" class="form-control col-m">
-          </div>
-          <div class="col-md-6 mb-3">
-            <input type="text" placeholder="Option 2 here..." value="False" class="form-control col-m">
-          </div>
-        </div>
-      </div>
-      <div class="card-footer d-flex justify-content-end align-items-center">
-        <button class="btn btn-outline-success save">Save</button>
-        <button class="btn btn-outline-warning d-none edit">Edit</button>
-      </div>
-      </div>
-    `
+    this.template;
   }
 
   connectedCallback(){
-    this.innerHTML = this.template;
-    $(this).find('.save').on('click', this.validateFields.bind(this))
-    $(this).find('.edit').on('click', this.enableFields.bind(this))
-    $(this).find('.delete').on('click', this.removeQuestion.bind(this))
+    if(!this.template){
+      $.ajax({
+        url: "http://localhost:4002/survey/question_tf",
+        method: 'GET',
+        wait: true,
+        success: (response) => {
+          this.template = response
+          this.innerHTML = this.template;
+          $(this).find('.save').on('click', this.validateFields.bind(this))
+          $(this).find('.edit').on('click', this.enableFields.bind(this))
+          $(this).find('.delete').on('click', this.removeQuestion.bind(this))
+        }
+      })
+    } else {
+      this.innerHTML = this.template;
+      $(this).find('.save').on('click', this.validateFields.bind(this))
+      $(this).find('.edit').on('click', this.enableFields.bind(this))
+      $(this).find('.delete').on('click', this.removeQuestion.bind(this))
+    }
   }
 
   validateFields() {

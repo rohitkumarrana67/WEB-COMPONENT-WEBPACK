@@ -2,21 +2,34 @@ class SurveySection extends HTMLElement {
 
   constructor() {
     super();
-    this.template = `
-    <button class="p-5 text-secondary mt-5" id="add-question-btn" style="border:1px dashed gray">+ Add Question</button>
-    <div class="w-100" id="question-container"></div>
-    <div class="text-center d-none mb-5"><button class="btn btn-outline-primary" id="add-question-small">+ Add Question</button></div>
-  `
+    this.template;
   }
 
   connectedCallback() {
     $(this).addClass('d-flex flex-column justify-content-center align-items-center h-100')
-    this.innerHTML = this.template;
-    let addQuestionBtn = this.querySelector('#add-question-btn')
-    let addQuestionSmall = this.querySelector('#add-question-small')
-    addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
-    addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
-    $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
+    if(!this.template){
+      $.ajax({
+        url: "http://localhost:4002/survey/survey_section",
+        method: 'GET',
+        wait: true,
+        success: (response) => {
+          this.template = response
+          this.innerHTML = this.template;
+          let addQuestionBtn = this.querySelector('#add-question-btn')
+          let addQuestionSmall = this.querySelector('#add-question-small')
+          addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
+          addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
+          $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
+        }
+      })
+    } else {
+      this.innerHTML = this.template;
+      let addQuestionBtn = this.querySelector('#add-question-btn')
+      let addQuestionSmall = this.querySelector('#add-question-small')
+      addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
+      addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
+      $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
+    }
   }
 
   displayModal() {
