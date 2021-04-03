@@ -9,21 +9,18 @@ class SurveyTopNav extends HTMLElement{
   render() {
     $(this).addClass('d-flex align-items-center')
     if(!this.template){
-      $.ajax({
-        url: "http://localhost:4002/survey/top_nav",
-        method: 'GET',
-        wait: true,
-        data: {text: this.text},
-        success: (response) => {
-          this.template = response
-          this.innerHTML = this.template
-          let editIcon = document.querySelector("#edit-title");
-          let saveIcon = document.querySelector("#save-title");
-          let cancelIcon = document.querySelector("#cancel-title");
-          editIcon.addEventListener('click', this.showInput.bind(this));
-          saveIcon.addEventListener('click', this.changeTitle.bind(this));
-          cancelIcon.addEventListener('click', this.undoChangeTitle.bind(this));
-        }
+      fetch(`http://localhost:4002/survey/top_nav?text=${this.text}`)
+      .then(response => {
+        return response.text();
+      }).then(response => {
+        this.template = response
+        this.innerHTML = this.template
+        let editIcon = document.querySelector("#edit-title");
+        let saveIcon = document.querySelector("#save-title");
+        let cancelIcon = document.querySelector("#cancel-title");
+        editIcon.addEventListener('click', this.showInput.bind(this));
+        saveIcon.addEventListener('click', this.changeTitle.bind(this));
+        cancelIcon.addEventListener('click', this.undoChangeTitle.bind(this));
       })
     } else {
       this.innerHTML = this.template

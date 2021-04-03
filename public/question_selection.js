@@ -13,21 +13,18 @@ class questionSelection extends HTMLElement{
 
   connectedCallback(){
     if(!this.template){
-      $.ajax({
-        url: "http://localhost:4002/survey/question_selection",
-        method: 'GET',
-        wait: true,
-        success: (response) => {
-          this.template = response
-          this.innerHTML = this.template;
-          $(this).find('.modal').modal('show')
-          $(this).on('click', '.close', (e)=>{
-            e.preventDefault()
-            e.stopPropagation()
-            $(this).remove()
-          })
-          $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
-        }
+      fetch("http://localhost:4002/survey/question_selection").then(response => {
+        return response.text();
+      }).then(response => {
+        this.template = response
+        this.innerHTML = this.template;
+        $(this).find('.modal').modal('show')
+        $(this).on('click', '.close', (e)=>{
+          e.preventDefault()
+          e.stopPropagation()
+          $(this).remove()
+        })
+        $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
       })
     } else {
       this.innerHTML = this.template;

@@ -8,19 +8,16 @@ class SurveySection extends HTMLElement {
   connectedCallback() {
     $(this).addClass('d-flex flex-column justify-content-center align-items-center h-100')
     if(!this.template){
-      $.ajax({
-        url: "http://localhost:4002/survey/survey_section",
-        method: 'GET',
-        wait: true,
-        success: (response) => {
-          this.template = response
-          this.innerHTML = this.template;
-          let addQuestionBtn = this.querySelector('#add-question-btn')
-          let addQuestionSmall = this.querySelector('#add-question-small')
-          addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
-          addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
-          $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
-        }
+      fetch("http://localhost:4002/survey/survey_section").then(response => {
+        return response.text();
+      }).then(response => {
+        this.template = response
+        this.innerHTML = this.template;
+        let addQuestionBtn = this.querySelector('#add-question-btn')
+        let addQuestionSmall = this.querySelector('#add-question-small')
+        addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
+        addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
+        $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
       })
     } else {
       this.innerHTML = this.template;

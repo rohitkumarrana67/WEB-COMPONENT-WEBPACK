@@ -8,17 +8,14 @@ class MCQQuestion extends HTMLElement {
 
   connectedCallback() {
     if(!this.template){
-      $.ajax({
-        url: "http://localhost:4002/survey/question_mcq",
-        method: 'GET',
-        wait: true,
-        success: (response) => {
-          this.template = response
-          this.innerHTML = this.template;
-          $(this).find('.save').on('click', this.validateFields.bind(this))
-          $(this).find('.edit').on('click', this.enableFields.bind(this))
-          $(this).find('.delete').on('click', this.removeQuestion.bind(this))
-        }
+      fetch("http://localhost:4002/survey/question_mcq").then(response => {
+        return response.text();
+      }).then(response => {
+        this.template = response
+        this.innerHTML = this.template;
+        $(this).find('.save').on('click', this.validateFields.bind(this))
+        $(this).find('.edit').on('click', this.enableFields.bind(this))
+        $(this).find('.delete').on('click', this.removeQuestion.bind(this))
       })
     } else {
       this.innerHTML = this.template;
