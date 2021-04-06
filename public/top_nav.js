@@ -1,5 +1,5 @@
 class SurveyTopNav extends HTMLElement{
-  
+
   constructor(){
     super();
     this.text = this.getAttribute('text') || 'New Survey';
@@ -7,7 +7,7 @@ class SurveyTopNav extends HTMLElement{
   }
 
   render() {
-    $(this).addClass('d-flex align-items-center')
+    $(this).addClass('d-flex align-items-center w-100')
     if(!this.template){
       fetch(`http://localhost:4002/survey/top_nav?text=${this.text}`)
       .then(response => {

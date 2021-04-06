@@ -25,6 +25,9 @@ class questionSelection extends HTMLElement{
           $(this).remove()
         })
         $(this).find('.modal-body button').on('click', this.renderQuestion.bind(this))
+        $(window).on('hidden.bs.modal',()=>{
+          $(this).remove()
+        })
       })
     } else {
       this.innerHTML = this.template;

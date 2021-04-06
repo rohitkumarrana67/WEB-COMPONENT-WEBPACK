@@ -15,16 +15,20 @@ class SurveySection extends HTMLElement {
         this.innerHTML = this.template;
         let addQuestionBtn = this.querySelector('#add-question-btn')
         let addQuestionSmall = this.querySelector('#add-question-small')
+        let newsurveyBtn = this.querySelector('#new-survey')
         addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
         addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
+        newsurveyBtn.addEventListener('click',this.displayNewSurveyPopup.bind(this))
         $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
       })
     } else {
       this.innerHTML = this.template;
       let addQuestionBtn = this.querySelector('#add-question-btn')
       let addQuestionSmall = this.querySelector('#add-question-small')
+      let newsurveyBtn = this.querySelector('#new-survey')
       addQuestionBtn.addEventListener('click', this.displayModal.bind(this))
       addQuestionSmall.addEventListener('click', this.displayModal.bind(this))
+      newsurveyBtn.addEventListener('click',this.displayNewSurveyPopup.bind(this))
       $(this).find('#question-container').on('question_deleted', this.checkIfLast.bind(this))
     }
   }
@@ -36,6 +40,16 @@ class SurveySection extends HTMLElement {
       })
     } else {
       $('body').append('<question-selection />')
+    }
+  }
+
+  displayNewSurveyPopup() {
+    if(!window.customElements.get('new-survey-popup')){
+      $.getScript('http://localhost:4001/new_survey_popup.js', ()=>{
+        $('body').append('<new-survey-popup />')
+      })
+    } else {
+      $('body').append('<new-survey-popup/>')
     }
   }
 
