@@ -15,6 +15,7 @@ class Survey extends HTMLElement{
         this.innerHTML = this.template;
         this.renderTopNav();
         this.renderNewSection();
+        // $(this).on('renderSurveyDetails', this.renderSurveyDetails.bind(this))
       }).catch((err)=>{
         console.log(err);
       });
@@ -27,7 +28,7 @@ class Survey extends HTMLElement{
 
   renderTopNav(){
     $.getScript('http://localhost:4001/top_nav.js', ()=>{
-      $(this).find('#top-nav').html('<survey-topnav class="bg-warning"/>')
+      $(this).find('#top-nav').html('<survey-topnav class="bg-aliceblue"/>')
     })
   }
 
@@ -36,6 +37,12 @@ class Survey extends HTMLElement{
       $(this).find('#main-content').html('<survey-section/>')
     })
   }
+
+  // renderSurveyDetails(){
+  //   $.getScript('http://localhost:4001/survey-edit.js', ()=>{
+  //     this.innerHTML = `<survey-edit/>`
+  //   })
+  // }
 
 }
 
